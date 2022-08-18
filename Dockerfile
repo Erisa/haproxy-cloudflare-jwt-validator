@@ -30,4 +30,6 @@ COPY --from=builder /usr/local/share/lua/5.3 /usr/local/share/lua/5.3
 COPY --from=builder /usr/local/lib/lua/5.3 /usr/local/lib/lua/5.3
 COPY ./src/base64.lua ./src/jwtverify.lua /usr/local/share/lua/5.3/
 
+COPY ./haproxy.cfg /usr/local/etc/haproxy/haproxy.cfg
+
 USER haproxy

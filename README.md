@@ -2,6 +2,38 @@
 
 haproxy-cloudflare-jwt-validator - JSON Web Token validation for haproxy
 
+# Erisa Fork description
+
+This Docker image allows you to simply and easily validate a JWT for a dockerized Cloudflare Access application before passing off requests to the application backend.
+
+The image is available as `erisamoe/haproxy-cf-jwt` and `ghcr.io/erisa/haproxy-cf-jwt`.  
+
+Currently, only `linux/amd64` is supported. I would like to add more architectures where possible in the near future.
+
+As well as trying to keep up to date with HAProxy releases, this fork also makes the change to define all required values in environment variables.
+
+To explain this, here's a `docker-compose.yml` example:
+
+```yaml
+services:
+  access:
+    image: erisamoe/haproxy-cf-jwt
+    restart: unless-stopped
+    environment:
+      - OAUTH_HOST=erisa.cloudflareaccess.com
+      - AUDIENCE_TAG=1234567890abcde1234567890abcde1234567890abcde
+      - BACKEND=webserver:80
+    depends_on:
+      - webserver
+```
+
+The required environment variables are:
+- `OAUTH_HOST`: Your Cloudflare Access domain, e.g. `erisa.cloudflareaccess.com`.
+- `AUDIENCE_TAG`: The Application Audience (AUD) Tag for your Access application.
+- `BACKEND`: The backend webserver to serve requests are authentication.
+
+Currently only one application and backend per each container instance is supported, you will have to make manual edits to `haproxy.cfg` and mount it as `/usr/local/etc/haproxy/haproxy.cfg` for custom logic and behaviour.
+
 # Description
 
 This was tested & developed with HAProxy version 2.3 & Lua version 5.3.
