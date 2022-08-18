@@ -1,4 +1,4 @@
-FROM haproxy:2.4-alpine as builder
+FROM haproxy:2.6-alpine as builder
 
 USER root
 WORKDIR /tmp
@@ -21,7 +21,7 @@ RUN wget https://github.com/wahern/luaossl/archive/rel-20190731.tar.gz -O /tmp/r
     cd /tmp/luaossl-rel-* && \
     make install
 
-FROM haproxy:2.4-alpine
+FROM haproxy:2.6-alpine
 
 USER root
 RUN apk add --no-cache ca-certificates lua5.3
