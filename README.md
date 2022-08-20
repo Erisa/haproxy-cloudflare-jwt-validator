@@ -30,7 +30,7 @@ services:
 The required environment variables are:
 - `OAUTH_HOST`: Your Cloudflare Access domain, e.g. `erisa.cloudflareaccess.com`.
 - `AUDIENCE_TAG`: The Application Audience (AUD) Tag for your Access application.
-- `BACKEND`: The backend webserver to serve requests are authentication.
+- `BACKEND`: The backend webserver to serve requests after authentication.
 
 Currently only one application and backend per each container instance is supported, you will have to make manual edits to `haproxy.cfg` and mount it as `/usr/local/etc/haproxy/haproxy.cfg` for custom logic and behaviour.
 
